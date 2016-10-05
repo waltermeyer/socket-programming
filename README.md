@@ -1,24 +1,32 @@
 ## Programming Project: TCP Sockets
 
-## Introduction
+## [Introduction](#intro-anchor)
 
 This is going to be a 3 part project. Part I is just a gentle introduction into
 HTTP and TCP. Part II is programming your own simple text based web browser client.
 And Part III is writing a simple web server application.
 
-### Part I: Act like a browser, think like a hacker.
+### [Part I: Act like a browser, think like a hacker.](#part1-anchor)
 
 When you use the web, you typically do so in a browser or an app of some kind.
 Underneath that pretty user interface, there are many protocols in use.
 
 Ethernet, IP, TCP, HTTP
 
+These protocols are part of the so-called layers of the Internet.
+
 We are going to focus on HTTP for now. When you go to a web page in your browser
-what is happening? How does the server you are visiting--Facebook, CNN, GitHub,
-etc. know what you want? It knows because of the HTTP protocol. A protocol
+what is happening? How does the server you are visiting: Facebook, CNN, GitHub,
+etc. know what you want?
+
+It knows because of the HTTP protocol. A protocol is just a way in which two or more parties communicate. In the case of computers, these two "parties" are software programs.
+
+Generally speaking, this is the client/server architecture of the web. There is a client, who wants to get data and the server who sends data to the client.
+
+[client]<---->[server]
 
 The HTTP protocol is pretty simple. Protocols like HTTP are much like the protocols
-those we use in our everyday life. For example, this morning (and every morning) I buy
+those we use in our everyday life. For example, this morning I bought
 my coffee from dingy looking cart few blocks from my apartment:
 
 Me: I want a large coffee with milk.
@@ -27,27 +35,34 @@ Coffee Guy: Hands me a large coffee with milk.
 Okay, this is basically how HTTP works. I'm not kidding. Let's make my morning
 coffee routine slightly more "computer like".
 
-Me: GET: Coffee/large/milk/
-Coffee Guy: HERE: Coffee/large/milk/
+Me: 'GET: Coffee/large/milk/'
+Coffee Guy: Hands me a large coffee with milk.
 
 Okay, not a very friendly exchange but there's a point! Let's look at what an
-HTTP request looks like. 
+HTTP request looks like.
 
-Your web browser: GET http://facebook.com HTTP/1.1\n\n
-The web server:   Returns the web page
+Your web browser makes an HTTP request that looks like this:
+```
+GET http://facebook.com/ HTTP/1.1\n\n
+```
+The web server:  Returns the web page
 
 So, let's break that down:
 
-GET - this says what it sounds like, GET the page!
-http://facebook.com -  the address
-HTTP/1.1\n\n - this is the ony scary-ish part. HTTP/1.1 is the "version" of the
-HTTP language we are speaking and teh '\n\n' are what are called newline characters
+```GET``` - this says what it sounds like, GET the page!
+
+```http://facebook.com/``` -  the address
+
+```HTTP/1.1\n\n``` - this is the only scary-ish part. ```HTTP/1.1``` is the "version" of the
+HTTP language we are speaking and the ```\n\n``` are what are called newline characters
 which signal that the request we are making is finished.
 
-Don't believe me. Fine. Let's just try it. We're going to talk to a web
-server in it's "native language" using a program called Telnet. Telnet is kind
-of a raw way of communicating over a network using sockets/TCP (more on sockets
-later and/or watch the lectures from Week 6 on TCP)
+Don't believe me? Fine, let's just try it. We're going to talk to a web
+server in it's "native language" (HTTP) using a program called Telnet. Telnet is kind
+of a "raw" way of communicating over a network using sockets and TCP (more on sockets
+later--be sure to watch the lectures from Week 6 on TCP).
+
+Use Telnet:
 
 Telnet on Mac OS X:
 http://www.wikihow.com/Use-Telnet-on-Mac-OS-X
@@ -55,28 +70,42 @@ http://www.wikihow.com/Use-Telnet-on-Mac-OS-X
 Telnet on Windows:
 https://kb.ctera.com/article/how-to-open-a-telnet-session-on-windows-7-or-windows-8-os-16.html
 
-Your web browser:
-GET http://students.purchase.edu/walter.meyer/resource/img/centralservices.jpg HTTP/1.1\n\n
+Okay, once you've gotten telnet up and running on your computer, you should be able to open your Terminal (Mac OS X) or CMD app (Windows) and type the following (the $ character is part of the shell 'prompt' you do not type it):
 
-### What is a socket?
+```
+$ telnet www.google.com
+Trying 172.217.4.36...
+Connected to www.google.com.
+Escape character is '^]'.
+GET / HTTP/1.1
+```
+* Press RETURN twice
 
-A socket is a software abstraction that allows you to connect two pieces of 
-software over a a network. These two pieces of software are usually
-running on different computers. 
+* What do you see?
 
-For example, your web browser uses a socket to connect to another web servers.
+So, that is essentially how HTTP works. Admittedly, this is an oversimplification but this is the essence of the protocol.
 
-When you connect to a website your browser "creates" a socket and "connects" to
-the web server in question. The web server also has a socket already "listening"
+### Part II: Build your own simple web server!
+
+A socket is a software abstraction that allows you to connect two pieces of
+software over a network. These two pieces of software are usually
+running on two different devices. e.g. your phone's web browser and a web server on the Internet.
+
+When you connect to a website your browser **creates** a socket and **connects** to
+the web server in question.
+
+The web server you are connecting  also has a socket already **listening**
 for connections. When it "hears" you connecting, it makes a connection back to
-you and then you can both begin exchanging data with one another over this
+you and then you can both begin to communicate with one another over this
 connection.
 
+You can think of sockets like the two ends of a pipe. When you want to connect to a web server, your device begins a connection setup process that, if successful, results in the following
+
 When I say "abstraction" I mean that "under the hood" there is more
-going on than would appear on the surface. 
+going on than would appear on the surface.
 
 In the same way that the gas pedal on a car is an abstraction that makes our car
-"go faster" when we press it. That is, we press the gas pedal and 
+"go faster" when we press it.
 
 A socket is really a software abstraction and "under the hood" TCP is being
 used to transmit data between you and your destination.
@@ -85,7 +114,7 @@ used to transmit data between you and your destination.
 
 ### Requirements
 
-You are going to write two programs. 
+You are going to write two programs.
 In part I, you will write a client program.
 
 In part II, you will modify your client program slightly and write a server
@@ -101,19 +130,26 @@ The assignment should be done using Python.
 You should run your two programs like so:
 
 ```
-python client.py www.purchase.edu > 
-
-
+python simple_server.py 3000
 
 ```
+Where ```3000``` is the port you are running your server on.
 
-### Resources
+### Additional Resources
+
+Sockets:
 
 https://docs.python.org/3/howto/sockets.html
 https://docs.python.org/2/howto/sockets.html
 
+### Academic Integrity
 
+It is imperative that you do not copy and paste code from the Internet, books, or elsewhere.
 
-```
- 
-```
+If you do, we will be able to tell. Don't do it.
+
+This does not mean that you can't research the ways other people have tackled a particularly programming problem or look at other code. It means you cannot plagiarize code in the same way you wouldn't for an essay. If you are using a particular Internet resource, StackOverflow, etc., please cite it in your submission.
+
+If you are at a point where the assignment feels completely overwhelming or you are at a loss as to what to do, talk to or email me. I will help you!
+
+https://www.purchase.edu/Policies/academicintegrity.aspx
