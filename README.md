@@ -23,7 +23,7 @@ It knows because of the HTTP protocol. A protocol is just a way in which two or 
 
 Generally speaking, this is the client/server architecture of the web. There is a client, who wants to get data and the server who sends data to the client.
 
-[client]<---->[server]
+![Client Server Diagram](/img/clientserver.png)
 
 The HTTP protocol is pretty simple. Protocols like HTTP are much like the protocols
 those we use in our everyday life. For example, this morning I bought
@@ -119,7 +119,7 @@ for connections. When it "hears" you connecting, it makes a connection back to
 you and then you can both begin to communicate with one another over this
 connection.
 
-![Socket Diagram](/img/pipe.png)
+![Pipe Diagram](/img/pipe.png)
 
 When I say "abstraction" I mean that "under the hood" there is more
 going on than would appear on the surface.
