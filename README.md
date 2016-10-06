@@ -7,22 +7,22 @@ HTTP and TCP. Part II is writing your own web server.
 
 ### [Part I: Act like a browser, think like a hacker.](#part1-anchor)
 
-When you use the web, you typically do so in a browser or an app of some kind.
-Underneath that pretty user interface, there are many protocols in use.
+When you use the web, you typically do so in a browser.
+Underneath the graphical user interface of your browser, there are many protocols in use.
 
 Namely, Ethernet, IP, TCP, and HTTP.
 
-These protocols are part of the so-called layers of the Internet.
+These protocols are part of the so-called layers of the Internet. You will learn about these protocols in more detail throughout the course.
 
-We are going to focus on HTTP for now. When you go to a web page in your browser
+For this project, we are going to focus on TCP and HTTP.
+
+First, we will cover the basics of how HTTP works. When you go to a web page in your browser
 what is happening? How does the server you are visiting: Facebook, CNN, GitHub,
-etc. know what you want?
+etc. know what you want to see?
 
-It knows because of the HTTP protocol. A protocol is just a way in which two or more parties communicate. In the case of computers, these two "parties" are software programs.
+It knows because of the HTTP protocol. A protocol is just a way in which two or more things communicate. In the case of computers, these two things are software programs.
 
 Generally speaking, this is the client/server architecture of the web. There is a client, who wants to get data and the server who sends data to the client.
-
-![Client Server Diagram](/img/clientserver.png)
 
 The HTTP protocol is pretty simple. Protocols like HTTP are much like the protocols
 those we use in our everyday life. For example, this morning I bought
@@ -56,12 +56,14 @@ So, let's break that down:
 HTTP language we are speaking and the ```\n\n``` are what are called newline characters
 which signal that the request we are making is finished.
 
+![Client Server Diagram](/img/clientserver.png)
+
 Don't believe me? Fine, let's just try it. We're going to talk to a web
 server in it's "native language" (HTTP) using a program called Telnet. Telnet is kind
 of a "raw" way of communicating over a network using sockets and TCP (more on sockets
 later--be sure to watch the lectures from Week 6 on TCP).
 
-Use Telnet:
+#### Telnet Setup
 
 Telnet on Mac OS X:
 http://www.wikihow.com/Use-Telnet-on-Mac-OS-X
@@ -69,13 +71,13 @@ http://www.wikihow.com/Use-Telnet-on-Mac-OS-X
 Telnet on Windows:
 https://kb.ctera.com/article/how-to-open-a-telnet-session-on-windows-7-or-windows-8-os-16.html
 
-Okay, once you've gotten telnet up and running on your computer, you should be able to open your Terminal (Mac OS X) or CMD app (Windows) and type the following (the $ character is part of the shell 'prompt' you do not type it):
+Okay, once you have telnet setup on your computer, you should be able to open your Terminal app (Mac OS X) or cmd app (Windows) and type the following (*Note: the $ character is part of the shell 'prompt' you do not type it*):
 
 ```
 $ telnet www.google.com
 GET / HTTP/1.1
 ```
-* Press RETURN twice (this us sending those ```\n\n``` characters)
+* Now, press RETURN twice (this us sending those ```\n\n``` characters)
 
 * What do you see?
 
@@ -88,13 +90,39 @@ GET /maps HTTP/1.1
 
 * What do you see now?
 
-Try the same thing on some other websites.
+Try the same thing on a few other websites.
 
 So, that is essentially how HTTP works. Admittedly, this is an oversimplification, but this is the essence of the protocol.
 
-### Part II: BYOW: (aka) Build Your Own Web Server
+### Part II: BYOWS: (aka) **B**uild **Y**our **O**wn **W**eb **S**erver
 
-What is a web server? Well, a web server is in its simplest form a program that serves web pages to web browsers! More specifically, when your browser visits a website, it is asking the web server for a particular file. Much like we did in Part 1, the web server is responding to so-called GET requests so that the browser can download a file and display it in your browser. Remember, a web page is just HTML contained in a file that your web browser "renders".
+What is a web server? Well, a web server in its simplest form is a program that serves web pages to web browsers! Okay, that isn't very clear, is it?
+
+More specifically, when your browser visits a website it is asking the web server for a particular file. Much like we did in Part 1, the web server is responding to these so-called GET requests that are part of the HTTP protocol. So, when the web server sees your get request it tries to return the file requested in the GET request.
+
+So, take this GET request for example:
+
+```
+$ telnet www.purchase.edu
+GET /index.html
+
+```
+
+What file do you think we are asking for there?
+
+What about this one?
+
+```
+$ telnet www.purchase.edu
+GET /test/index.html
+
+```
+
+What does the prefix of ```/test/``` before the ```index.html``` mean?
+
+In both cases, we are asking for a file called index.html. In the second example, we are asking for a file called index.html inside of a folder called ```test```.
+
+So, if the web server returns a file to you, your browser proceeds to display it. Remember, a web page is just HTML contained in a file that your web browser "renders".
 
 ### How does a socket work?
 
@@ -114,21 +142,64 @@ connection.
 
 ![Pipe Diagram](/img/pipe.png)
 
-When I say "abstraction" I mean that "under the hood" there is more
-going on than would appear on the surface.
+Wait, how does this fit in with HTTP? Well, in some sense the language of HTTP is being "spoken" through this virtual pipe. That is, two computers use TCP to setup a pipe for communication and then talk to each other through this pipe using another protocol. In the case of the web, HTTP!
 
-In the same way that the gas pedal on a car is an abstraction that makes our car
-"go faster" when we press it.
+So, a socket is really a software abstraction and "under the hood" TCP is being
+used to transmit data between you and your destination. This allows for the reliable transfer of data over the Internet. Remember, you will learn that the the Internet, that is, the IP protocol, is inherently unreliable. That is, it can "drop" or "lose" packets. TCP is used to ensure that data can be delivered reliably between computers in spite of this.
 
-A socket is really a software abstraction and "under the hood" TCP is being
-used to transmit data between you and your destination. This allows for the reliable transfer of data over the Internet. Remember, you will learn that the the Internet, that is the IP protocol, is inherently unreliable. That is, it can "drop" or lose packets. TCP is used to ensure that data can be delivered reliably in spite of this.
+### Building Your Own Web Server
+You are going to write a web server that is able to "serve" files from your computer to web clients (your web browser of choice). This is essentially what a real web server does.
 
+Your web server should behave like this:
+
+1. Start your server
+
+```
+python simple_server.py 3000
+
+```
+Where ```3000``` is the port you are running your server on.
+
+2. Make sure that the directory from which your server us running contains the following directory of files (unzip them):
+
+https://github.com/BlackrockDigital/startbootstrap-new-age/archive/gh-pages.zip
+
+3. Rename the 'startbootstrap-new-age-gh-pages 2' directory you just unzipped to 'test'.
+
+3. In your Web browser visit the following URL:
+
+http://localhost:3000/test/index.html
+
+If the page renders correctly, you have done it, your server works! Read on for how to get started on programming.
+
+### Beginning Hints
+You should use an "iterative" development style and approach when writing code.
+
+For example, don't try to implement everything at once. Rather, try to get your server to simply respond to your web server without serving files.
+
+Once you have that working, begin trying to send files to the browser.
 
 ### Getting Started with the Python Socket Library
 
-Your program will be the server. As such, there are 5 steps to creating a socket that can handle client requests. See the code excerpts below.
+Remember how a simple Python program starts out, right? Here is a refresher:
+
+Your file should be named ```simple_server.py``` and contain the following at minimum:
+
+```Python
+if name == "__main__":
+    print "Hello World!"
+```
+
+If you've programmed in Python before, this program will be, in many ways, similar to others you have written. You will need to use variables, accept arguments, manipulate strings, etc.
+
+However, the major difference when writing a server is that you need to use sockets. Luckily, Python provides a great socket library that will make it easier for you to get started.
+
+Remember, your program will be the server. As such, there are 5 steps to creating a socket that can handle client requests. See the code excerpts below.
 
 ```python
+# 0. Import the socket library so we can actually use it!
+import socket
+
 # 1. Create a socket
 my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -140,17 +211,23 @@ my_socket.listen(5)
 
 # 4. Begin "accepting" client connections
 conn, addr = my_socket.accept()
+
+# 5. Receive some data (up to 1024 bytes) FROM the client
+data = ''
+conn.recv(1024)
+print data
+
+# 6. Send some data back TO the client
+conn.sendall("Hello Web Client!")
 ```
+
+Feel free you use this code to start out.
 
 ![Socket Diagram](/img/server.png)
 
-### Requirements
+Now, once you have your program to a point where you thing it is working and creating a socket, try connecting to it in your web browser or use telnet again.
 
-You are going to write a web server that is able to "serve" files to web clients (your web browser of choice). For example:
-
-Your program will behave as such:
-
-1. Start your server
+If you started you server like so:
 
 ```
 python simple_server.py 3000
@@ -158,28 +235,19 @@ python simple_server.py 3000
 ```
 Where ```3000``` is the port you are running your server on.
 
-2. Make sure that the directory from which your server contains the following directory of files (unzip them):
+Then you would access your server in your browser at the following URL:
 
-https://github.com/BlackrockDigital/startbootstrap-new-age/archive/gh-pages.zip
+http://localhost:3000/
 
-3. Rename the 'startbootstrap-new-age-gh-pages 2' directory you just unzipped to 'test'.
+### Submissions
 
-3. In your Web browser visit the following URL:
+Submissions will be done using Git (GitHub Classroom).
 
-http://localhost:3000/test/index.html
+You should familiarize yourself with how to use Git:
 
-If the page renders correctly, you have done it!
+https://help.github.com/articles/good-resources-for-learning-git-and-github/
 
-### Hints
-You should use an iterative development style and approach when writing code.
-
-For example, don't try to implement everything at once. Rather, try to get your server to simply respond to your web server without serving files.
-
-Once you have that working, begin trying to send files to the browser.
-
-### Language
-
-The assignment should be done using Python. If you want to use something else, come talk to me first.
+If you are working on a team, you will elect one member who will submit their GitHub repository.
 
 ### Additional Resources
 
@@ -187,6 +255,11 @@ Sockets:
 
 https://docs.python.org/3/howto/sockets.html
 https://docs.python.org/2/howto/sockets.html
+
+HTTP:
+
+https://www.tutorialspoint.com/http/http_parameters.htm
+https://www.tutorialspoint.com/http/http_messages.htm
 
 ### Academic Integrity
 
@@ -199,3 +272,7 @@ This does not mean that you can't research the ways other people have tackled a 
 If you are at a point where the assignment feels completely overwhelming or you are at a loss as to what to do, talk to or email me. I will help you!
 
 https://www.purchase.edu/Policies/academicintegrity.aspx
+
+### Questions / Concerns
+
+Email me or post to Moodle!
