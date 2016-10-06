@@ -76,15 +76,15 @@ later--be sure to [watch the lectures from Week 6 on TCP](https://www.coursera.o
 #### Telnet Setup
 
 Telnet on Mac OS X:
-http://www.wikihow.com/Use-Telnet-on-Mac-OS-X
+Just open Applications > Utilities > Terminal.app
 
 Telnet on Windows:
 https://kb.ctera.com/article/how-to-open-a-telnet-session-on-windows-7-or-windows-8-os-16.html
 
-Okay, once you have telnet setup on your computer, you should be able to open your Terminal app (Mac OS X) or cmd app (Windows) and type the following (*Note: the $ character is part of the shell 'prompt' you do not type it*):
+Okay, once you have telnet setup on your computer, you should be able to open your Terminal app (Mac OS X) or cmd app (Windows) and type the following:
 
 ```
-$ telnet www.google.com 80
+telnet www.google.com 80
 GET / HTTP/1.1
 ```
 * Now, press RETURN twice (this us sending those ```\n\n``` characters)
@@ -94,7 +94,7 @@ GET / HTTP/1.1
 What about trying this:
 
 ```
-$ telnet www.google.com 80
+telnet www.google.com 80
 GET /maps HTTP/1.1
 ```
 
@@ -114,7 +114,7 @@ So, take this GET request for example:
 
 
 ```
-$ telnet students.purchase.edu 80
+telnet students.purchase.edu 80
 GET /walter.meyer/index.html HTTP/1.0
 
 ```
