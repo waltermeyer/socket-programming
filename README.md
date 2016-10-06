@@ -183,7 +183,7 @@ If the page renders correctly, you have done it--your server works! Read on for 
 ### Beginning Hints
 You should use an "iterative" development style when writing code.
 
-For example, don't try to implement everything at once. Rather, try to get your server to simply respond to your web server without serving files. Before that, just make sure your program can do basic things. Use ```print``` statements to help you debug and test your code.
+For example, don't try to implement everything at once. Rather, try to get your server to simply respond to GET requests without serving files. Before that, just make sure your program can do basic things. Use ```print``` statements to help you debug and test your code.
 
 Once you have everything working, begin trying to send files to the browser.
 
