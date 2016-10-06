@@ -98,7 +98,7 @@ Try the same thing on some other websites.
 
 So, that is essentially how HTTP works. Admittedly, this is an oversimplification, but this is the essence of the protocol.
 
-### Part II: Build your own simple web server!
+### Part II: BYOWS: (aka) Build Your Own Web Server
 
 What is a web server. Well, a web server is in its simplest form a program that serves web pages to web browsers! More specifically, when your browser visits a website, it is asking the web server for a particular file. Much like we did in Part 1, the web server is responding to GET requests so that the browser can download a file and display it in your browser. Remember, a web page is HTML contained in a file that your web browser "renders".
 
@@ -108,7 +108,7 @@ A socket is a software abstraction that allows you to connect two pieces of
 software over a network. These two pieces of software are usually
 running on two different devices. e.g. your phone's web browser and a web server on the Internet.
 
-You can think of sockets like the two ends of a pipe. When you want to connect to a web server, your device begins a connection setup process that, if successful, results in the following
+You can think of sockets like the two ends of a pipe. When you want to connect to a web server, your device begins a connection setup process that, if successful, results in the a virtual "pipe" being constructed between you and the server in question.
 
 When you connect to a website your browser **creates** a socket and **connects** to
 the web server in question.
