@@ -3,15 +3,14 @@
 ### [Introduction](#intro-anchor)
 
 This is going to be a 2 part project. Part I is just a gentle introduction into
-HTTP and TCP. Part II is programming your own simple text based web browser client.
-And Part III is writing a simple web server application.
+HTTP and TCP. Part II is writing your own web server.
 
 ### [Part I: Act like a browser, think like a hacker.](#part1-anchor)
 
 When you use the web, you typically do so in a browser or an app of some kind.
 Underneath that pretty user interface, there are many protocols in use.
 
-Ethernet, IP, TCP, HTTP
+Namely, Ethernet, IP, TCP, and HTTP.
 
 These protocols are part of the so-called layers of the Internet.
 
@@ -29,21 +28,21 @@ The HTTP protocol is pretty simple. Protocols like HTTP are much like the protoc
 those we use in our everyday life. For example, this morning I bought
 my coffee from dingy looking cart few blocks from my apartment:
 
-Me: I want a large coffee with milk.
-Coffee Guy: Hands me a large coffee with milk.
+* ME: I want a large coffee with milk.
+* COFFEE GUY: (Hands me a large coffee with milk.)
 
 Okay, this is basically how HTTP works. I'm not kidding. Let's make my morning
 coffee routine slightly more "computer like".
 
-Me: 'GET: Coffee/large/milk/'
-Coffee Guy: Hands me a large coffee with milk.
+* ME: ```GET: Coffee/large/milk/```
+* COFFEE GUY:  ```Hands me a large coffee with milk.```
 
-Okay, not a very friendly exchange but there's a point! Let's look at what an
+Okay, not a very friendly exchange, but there's a point! Let's look at what an actual
 HTTP request looks like.
 
 Your web browser makes an HTTP request that looks like this:
 ```
-GET http://facebook.com/ HTTP/1.1\n\n
+GET /index.html HTTP/1.1\n\n
 ```
 The web server:  Returns the web page
 
@@ -51,7 +50,7 @@ So, let's break that down:
 
 ```GET``` - this says what it sounds like, GET the page!
 
-```http://facebook.com/``` -  the address
+```/index.html``` -  this is the file we are asking the web server for.
 
 ```HTTP/1.1\n\n``` - this is the only scary-ish part. ```HTTP/1.1``` is the "version" of the
 HTTP language we are speaking and the ```\n\n``` are what are called newline characters
@@ -101,7 +100,7 @@ So, that is essentially how HTTP works. Admittedly, this is an oversimplificatio
 
 ### Part II: Build your own simple web server!
 
-What is a web server. Well, a web server is in its simplest form a program that serves data to web clients. More specifically, hen your browser visits a website, it is asking the web server for a particular file or set of files. Much like we did in Part 1, the web server is responding to GET requests so that the browser can download a file and display it in your browser. Remember, a web page is HTML contained in a file that your web browser "renders".
+What is a web server. Well, a web server is in its simplest form a program that serves web pages to web browsers! More specifically, when your browser visits a website, it is asking the web server for a particular file. Much like we did in Part 1, the web server is responding to GET requests so that the browser can download a file and display it in your browser. Remember, a web page is HTML contained in a file that your web browser "renders".
 
 ### How does a socket work?
 
