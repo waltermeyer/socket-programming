@@ -114,36 +114,37 @@ So, take this GET request for example:
 
 
 ```
-$ telnet students.purchase.edu/walter.meyer/index.html
-GET /test/index.html
+$ telnet students.purchase.edu 80
+GET /walter.meyer/index.html HTTP/1.0
 
 ```
+* Now, press RETURN twice (this us sending those ```\n\n``` characters)
 
 What file do you think we are asking for there?
 
 What does the prefix of ```/walter.meyer/``` before the ```index.html``` mean?
 
-We are asking for a file called index.html inside of a folder called ```walter.meyer```.
+We are asking for a file called ```index.html``` inside of a folder called ```walter.meyer```.
 
-So, if the web server returns a file to you, your browser proceeds to display it. Remember, a web page is just HTML contained in a file that your web browser "renders".
+So, if the web server returns a file to you your browser proceeds to display it. Remember, a web page is just HTML contained in a file that your web browser "renders".
 
 ### How does a socket work?
 
 A socket is a software abstraction that allows you to connect two pieces of
 software over a network. These two pieces of software are usually
-running on two different devices. e.g. your phone's web browser and a web server on the Internet.
+running on two different devices. e.g. your phone's web browser and a web server out on the Internet.
 
 You can think of sockets like the two ends of a pipe. When you want to connect to a web server, your device begins a connection setup process that, if successful, results in the a virtual "pipe" being constructed between you and the server in question.
+
+![Pipe Diagram](/img/pipe.png)
 
 When you connect to a website your browser **creates** a socket and **connects** to
 the web server in question.
 
-The web server you are connecting  also has a socket already **listening**
+The web server you are connecting also has a socket already **listening**
 for connections. When it "hears" you connecting, it makes a connection back to
 you and then you can both begin to communicate with one another over this
 connection.
-
-![Pipe Diagram](/img/pipe.png)
 
 Wait, how does this fit in with HTTP? Well, in some sense the language of HTTP is being "spoken" through this virtual pipe. That is, two computers use TCP to setup a pipe for communication and then talk to each other through this pipe using another protocol. In the case of the web, HTTP!
 
@@ -153,7 +154,7 @@ used to transmit data between you and your destination. This allows for the reli
 ### Building Your Own Web Server
 You are going to write a web server that is able to "serve" files from your computer to web clients (your web browser of choice). This is essentially what a real web server does.
 
-Your web server should behave like this:
+Your web program (server) should behave like this:
 
 1. Start your server
 
@@ -163,24 +164,35 @@ python simple_server.py 3000
 ```
 Where ```3000``` is the port you are running your server on.
 
-2. Make sure that the directory from which your server us running contains the following directory of files (unzip them):
+2. Create a ```test```directory in the same location your simple_server.py program is stored.
 
-https://github.com/BlackrockDigital/startbootstrap-new-age/archive/gh-pages.zip
+3. Create an index.html file with some basic HTML in it. We will use this to test your server.
 
-3. Rename the 'startbootstrap-new-age-gh-pages 2' directory you just unzipped to 'test'.
+```
+simple_server.py
+\_test
+  \_index.html
+```
 
-3. In your Web browser visit the following URL:
+4. In your Web browser visit the following URL:
 
 http://localhost:3000/test/index.html
 
-If the page renders correctly, you have done it, your server works! Read on for how to get started on programming.
+If the page renders correctly, you have done it--your server works! Read on for how to get started on programming.
 
 ### Beginning Hints
-You should use an "iterative" development style and approach when writing code.
+You should use an "iterative" development style when writing code.
 
-For example, don't try to implement everything at once. Rather, try to get your server to simply respond to your web server without serving files.
+For example, don't try to implement everything at once. Rather, try to get your server to simply respond to your web server without serving files. Before that, just make sure your program can do basic things. Use ```print``` statements to help you debug and test your code.
 
-Once you have that working, begin trying to send files to the browser.
+Once you have everything working, begin trying to send files to the browser.
+
+You will need to import the following libraries, at a minimum, to get your code to work
+
+```Python
+import sys    # for getting arguments passed to your program when you run it
+import socket # for sockets
+```
 
 ### Getting Started with the Python Socket Library
 
