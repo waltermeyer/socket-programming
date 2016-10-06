@@ -73,9 +73,6 @@ Okay, once you've gotten telnet up and running on your computer, you should be a
 
 ```
 $ telnet www.google.com
-Trying 172.217.4.36...
-Connected to www.google.com.
-Escape character is '^]'.
 GET / HTTP/1.1
 ```
 * Press RETURN twice (this us sending those ```\n\n``` characters)
@@ -86,9 +83,6 @@ What about trying this:
 
 ```
 $ telnet www.google.com
-Trying 172.217.4.36...
-Connected to www.google.com.
-Escape character is '^]'.
 GET /maps HTTP/1.1
 ```
 
@@ -98,9 +92,9 @@ Try the same thing on some other websites.
 
 So, that is essentially how HTTP works. Admittedly, this is an oversimplification, but this is the essence of the protocol.
 
-### Part II: BYOWS: (aka) Build Your Own Web Server
+### Part II: BYOW: (aka) Build Your Own Web Server
 
-What is a web server. Well, a web server is in its simplest form a program that serves web pages to web browsers! More specifically, when your browser visits a website, it is asking the web server for a particular file. Much like we did in Part 1, the web server is responding to GET requests so that the browser can download a file and display it in your browser. Remember, a web page is HTML contained in a file that your web browser "renders".
+What is a web server? Well, a web server is in its simplest form a program that serves web pages to web browsers! More specifically, when your browser visits a website, it is asking the web server for a particular file. Much like we did in Part 1, the web server is responding to so-called GET requests so that the browser can download a file and display it in your browser. Remember, a web page is just HTML contained in a file that your web browser "renders".
 
 ### How does a socket work?
 
@@ -145,33 +139,47 @@ my_socket.bind((host, port))
 my_socket.listen(5)
 
 # 4. Begin "accepting" client connections
-conn, addr = sock.accept()
+conn, addr = my_socket.accept()
 ```
 
 ![Socket Diagram](/img/server.png)
 
 ### Requirements
 
-You are going to write two programs.
-In part I, you will write a client program.
+You are going to write a web server that is able to "serve" files to web clients (your web browser of choice). For example:
 
-In part II, you will modify your client program slightly and write a server
-program. You will then be able to use these two to communicate with one another
-using the console.
+Your program will behave as such:
 
-### Language
-
-The assignment should be done using Python. If you want to use something else, come talk to me first.
-
-### Running your program
-
-You should run your two programs like so:
+1. Start your server
 
 ```
 python simple_server.py 3000
 
 ```
 Where ```3000``` is the port you are running your server on.
+
+2. Make sure that the directory from which your server contains the following directory of files (unzip them):
+
+https://github.com/BlackrockDigital/startbootstrap-new-age/archive/gh-pages.zip
+
+3. Rename the 'startbootstrap-new-age-gh-pages 2' directory you just unzipped to 'test'.
+
+3. In your Web browser visit the following URL:
+
+http://localhost:3000/test/index.html
+
+If the page renders correctly, you have done it!
+
+### Hints
+You should use an iterative development style and approach when writing code.
+
+For example, don't try to implement everything at once. Rather, try to get your server to simply respond to your web server without serving files.
+
+Once you have that working, begin trying to send files to the browser.
+
+### Language
+
+The assignment should be done using Python. If you want to use something else, come talk to me first.
 
 ### Additional Resources
 
