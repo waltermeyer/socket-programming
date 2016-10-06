@@ -1,8 +1,8 @@
 ## Programming Project: TCP Sockets
 
-## [Introduction](#intro-anchor)
+### [Introduction](#intro-anchor)
 
-This is going to be a 3 part project. Part I is just a gentle introduction into
+This is going to be a 2 part project. Part I is just a gentle introduction into
 HTTP and TCP. Part II is programming your own simple text based web browser client.
 And Part III is writing a simple web server application.
 
@@ -79,17 +79,37 @@ Connected to www.google.com.
 Escape character is '^]'.
 GET / HTTP/1.1
 ```
-* Press RETURN twice
+* Press RETURN twice (this us sending those ```\n\n``` characters)
 
 * What do you see?
 
-So, that is essentially how HTTP works. Admittedly, this is an oversimplification but this is the essence of the protocol.
+What about trying this:
+
+```
+$ telnet www.google.com
+Trying 172.217.4.36...
+Connected to www.google.com.
+Escape character is '^]'.
+GET /maps HTTP/1.1
+```
+
+* What do you see now?
+
+Try the same thing on some other websites.
+
+So, that is essentially how HTTP works. Admittedly, this is an oversimplification, but this is the essence of the protocol.
 
 ### Part II: Build your own simple web server!
+
+What is a web server. Well, a web server is in its simplest form a program that serves data to web clients. More specifically, hen your browser visits a website, it is asking the web server for a particular file or set of files. Much like we did in Part 1, the web server is responding to GET requests so that the browser can download a file and display it in your browser. Remember, a web page is HTML contained in a file that your web browser "renders".
+
+### How does a socket work?
 
 A socket is a software abstraction that allows you to connect two pieces of
 software over a network. These two pieces of software are usually
 running on two different devices. e.g. your phone's web browser and a web server on the Internet.
+
+You can think of sockets like the two ends of a pipe. When you want to connect to a web server, your device begins a connection setup process that, if successful, results in the following
 
 When you connect to a website your browser **creates** a socket and **connects** to
 the web server in question.
@@ -99,7 +119,7 @@ for connections. When it "hears" you connecting, it makes a connection back to
 you and then you can both begin to communicate with one another over this
 connection.
 
-You can think of sockets like the two ends of a pipe. When you want to connect to a web server, your device begins a connection setup process that, if successful, results in the following
+![Socket Diagram](/img/pipe.png)
 
 When I say "abstraction" I mean that "under the hood" there is more
 going on than would appear on the surface.
@@ -108,9 +128,28 @@ In the same way that the gas pedal on a car is an abstraction that makes our car
 "go faster" when we press it.
 
 A socket is really a software abstraction and "under the hood" TCP is being
-used to transmit data between you and your destination.
+used to transmit data between you and your destination. This allows for the reliable transfer of data over the Internet. Remember, you will learn that the the Internet, that is the IP protocol, is inherently unreliable. That is, it can "drop" or lose packets. TCP is used to ensure that data can be delivered reliably in spite of this.
 
-### How does a socket work?
+
+### Getting Started with the Python Socket Library
+
+Your program will be the server. As such, there are 5 steps to creating a socket that can handle client requests. See the code excerpts below.
+
+```python
+# 1. Create a socket
+my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# 2. "Bind" the socket to an IP and PORT
+my_socket.bind((host, port))
+
+# 3. Begin "listening" on the socket
+my_socket.listen(5)
+
+# 4. Begin "accepting" client connections
+conn, addr = sock.accept()
+```
+
+![Socket Diagram](/img/server.png)
 
 ### Requirements
 
@@ -123,7 +162,7 @@ using the console.
 
 ### Language
 
-The assignment should be done using Python.
+The assignment should be done using Python. If you want to use something else, come talk to me first.
 
 ### Running your program
 
