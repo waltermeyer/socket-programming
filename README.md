@@ -2,8 +2,11 @@
 
 ### [Introduction](#intro-anchor)
 
-This is going to be a 2 part project. Part I is just a gentle introduction into
-HTTP and TCP. Part II is writing your own web server.
+This is going to be a 2 part project.
+
+Part I is just a gentle introduction into HTTP and TCP.
+
+In part II, you will write your own web server.
 
 ### [Part I: Act like a browser, think like a hacker.](#part1-anchor)
 
@@ -16,37 +19,44 @@ These protocols are part of the so-called layers of the Internet. You will learn
 
 For this project, we are going to focus on TCP and HTTP.
 
-First, we will cover the basics of how HTTP works. When you go to a web page in your browser
-what is happening? How does the server you are visiting: Facebook, CNN, GitHub,
-etc. know what you want to see?
+First, we will cover the basics of how HTTP works.
 
-It knows because of the HTTP protocol. A protocol is just a way in which two or more things communicate. In the case of computers, these two things are software programs.
+When you go to a web page in your browser what is happening behind the scenes?
 
-Generally speaking, this is the client/server architecture of the web. There is a client, who wants to get data and the server who sends data to the client.
+How does the server you are visiting: Facebook, CNN, GitHub, etc. know what you want to see?
+
+It "knows" because of the HTTP protocol. A protocol is just a way in which two or more things communicate. In the case of computers, these two things are typically software programs.
+
+Generally speaking, this is the client/server architecture of the web. There is a client, who wants to get data and a server who sends data to the client. The client and the server must establish a "protocol" or set of rules for communicating with eachother.
 
 The HTTP protocol is pretty simple. Protocols like HTTP are much like the protocols
 those we use in our everyday life. For example, this morning I bought
 my coffee from dingy looking cart few blocks from my apartment:
 
-* ME: I want a large coffee with milk.
-* COFFEE GUY: (Hands me a large coffee with milk.)
+* **ME**: I want a large coffee with milk.
+* **COFFEE GUY**: (Hands me a large coffee with milk.)
 
 Okay, this is basically how HTTP works. I'm not kidding. Let's make my morning
 coffee routine slightly more "computer like".
 
-* ME: ```GET: Coffee/large/milk/```
-* COFFEE GUY:  ```Hands me a large coffee with milk.```
+* **ME**: ```GET: Coffee/large/milk/```
+* **COFFEE GUY**:  ```(Hands me a large coffee with milk.)```
 
 Okay, not a very friendly exchange, but there's a point! Let's look at what an actual
 HTTP request looks like.
 
 Your web browser makes an HTTP request that looks like this:
+
+**ME**:
 ```
 GET /index.html HTTP/1.1\n\n
 ```
-The web server:  Returns the web page
+**WEB SERVER**:
+```
+(Returns the web page!)
+```
 
-So, let's break that down:
+Okay, let's break that down:
 
 ```GET``` - this says what it sounds like, GET the page!
 
@@ -61,7 +71,7 @@ which signal that the request we are making is finished.
 Don't believe me? Fine, let's just try it. We're going to talk to a web
 server in it's "native language" (HTTP) using a program called Telnet. Telnet is kind
 of a "raw" way of communicating over a network using sockets and TCP (more on sockets
-later--be sure to watch the lectures from Week 6 on TCP).
+later--be sure to [watch the lectures from Week 6 on TCP](https://www.coursera.org/learn/internet-history#syllabus)).
 
 #### Telnet Setup
 
@@ -74,7 +84,7 @@ https://kb.ctera.com/article/how-to-open-a-telnet-session-on-windows-7-or-window
 Okay, once you have telnet setup on your computer, you should be able to open your Terminal app (Mac OS X) or cmd app (Windows) and type the following (*Note: the $ character is part of the shell 'prompt' you do not type it*):
 
 ```
-$ telnet www.google.com
+$ telnet www.google.com 80
 GET / HTTP/1.1
 ```
 * Now, press RETURN twice (this us sending those ```\n\n``` characters)
@@ -84,7 +94,7 @@ GET / HTTP/1.1
 What about trying this:
 
 ```
-$ telnet www.google.com
+$ telnet www.google.com 80
 GET /maps HTTP/1.1
 ```
 
@@ -102,25 +112,18 @@ More specifically, when your browser visits a website it is asking the web serve
 
 So, take this GET request for example:
 
+
 ```
-$ telnet www.purchase.edu
-GET /index.html
+$ telnet students.purchase.edu/walter.meyer/index.html
+GET /test/index.html
 
 ```
 
 What file do you think we are asking for there?
 
-What about this one?
+What does the prefix of ```/walter.meyer/``` before the ```index.html``` mean?
 
-```
-$ telnet www.purchase.edu
-GET /test/index.html
-
-```
-
-What does the prefix of ```/test/``` before the ```index.html``` mean?
-
-In both cases, we are asking for a file called index.html. In the second example, we are asking for a file called index.html inside of a folder called ```test```.
+We are asking for a file called index.html inside of a folder called ```walter.meyer```.
 
 So, if the web server returns a file to you, your browser proceeds to display it. Remember, a web page is just HTML contained in a file that your web browser "renders".
 
