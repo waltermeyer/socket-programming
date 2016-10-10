@@ -33,7 +33,9 @@ Git uses a three tier model.
 Files are in one of three states:
 
 Commited (in the repository)
+
 Staged (waiting to be committed to the repository)
+
 Working (changed, but not staged yet)
 
 ![Git Stages](areas.png)
@@ -42,15 +44,19 @@ Working (changed, but not staged yet)
 
 Check Changes:
 ```git status``` - see what files have been modified or are untracked
+
 ```git log``` - see the log of what has been committed
+
 ```git ls-files``` - see what files are in the git repository
 
 Stage and Commit Changes:
 ```git add filename``` - add a file to the staging area
+
 ```git commit -m "I changed some things!"``` - commit all changed files in the staging area to your repository.
 
 Rollback Changes:
 ```git checkout -- filename``` - revert unstaged changes back to the last commit
+
 ```git reset HEAD filename``` - remove a file from the staging area
 
 Git uses a 3 tier model. That is, when you are working you essentially save and
