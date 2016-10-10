@@ -229,7 +229,7 @@ conn, addr = my_socket.accept()
 
 # 5. Receive some data (up to 1024 bytes) FROM the client
 data = ''
-conn.recv(1024)
+data = conn.recv(1024)
 print data
 
 # 6. Send some data back TO the client
