@@ -1,6 +1,6 @@
 ## Programming Project: TCP Sockets
 
-### [Introduction](#intro-anchor)
+### Introduction
 
 This is going to be a 2 part project.
 
@@ -8,7 +8,7 @@ Part I is just a gentle introduction into HTTP and TCP.
 
 In part II, you will write your own web server.
 
-### [Part I: Act like a browser, think like a hacker.](#part1-anchor)
+### Part I: Act like a browser, think like a hacker.
 
 When you use the web, you typically do so in a browser.
 Underneath the graphical user interface of your browser, there are many protocols in use.
@@ -260,6 +260,10 @@ Submissions will be done using Git (GitHub Classroom).
 
 You should familiarize yourself with how to use Git:
 
+Quick Start:
+https://github.com/waltermeyer/socket-programming/blob/master/git_tutorial/README.md
+
+More Tutorials:
 https://help.github.com/articles/good-resources-for-learning-git-and-github/
 
 If you are working on a team, you will elect one member who will submit their GitHub repository.

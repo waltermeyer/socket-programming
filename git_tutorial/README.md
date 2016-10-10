@@ -11,13 +11,13 @@ from GitHub to the computer you want to work on.
 
 So, if your repository is here:
 
-https://github.com/PurchaseCollege/socket-programming-waltermeyer
+https://github.com/PurchaseCollege/socket-programming-yourgitusername
 
 On your computer, from the command line, do:
 
 ```
-git clone https://github.com/PurchaseCollege/socket-programming-waltermeyer.git
-cd socket-programming-waltermeyer
+git clone https://github.com/PurchaseCollege/socket-programming-yourgitusername.git
+cd socket-programming-yourgitusername
 ```
 
 Now you are in your project folder.
@@ -33,24 +33,33 @@ Git uses a three tier model.
 Files are in one of three states:
 
 Commited (in the repository)
+
 Staged (waiting to be committed to the repository)
+
 Working (changed, but not staged yet)
 
 ![Git Stages](areas.png)
 
 ### Git Commands
 
-Check Changes:
+**Check Changes:**
+
 ```git status``` - see what files have been modified or are untracked
+
 ```git log``` - see the log of what has been committed
+
 ```git ls-files``` - see what files are in the git repository
 
-Stage and Commit Changes:
+**Stage and Commit Changes:**
+
 ```git add filename``` - add a file to the staging area
+
 ```git commit -m "I changed some things!"``` - commit all changed files in the staging area to your repository.
 
-Rollback Changes:
+**Rollback Changes:**
+
 ```git checkout -- filename``` - revert unstaged changes back to the last commit
+
 ```git reset HEAD filename``` - remove a file from the staging area
 
 Git uses a 3 tier model. That is, when you are working you essentially save and
@@ -60,11 +69,13 @@ commit your changes to your repository.
 
 Go to my project directory:
 ```
-cd socket-programming-waltermeyer
+cd socket-programming-yourgitusername
 ```
 
 Do some work:
+
 *... make some edits to a file, e.g. ```simple_server.py```...*
+
 *... test that the code works ...*
 
 Add the file to the staging area:
