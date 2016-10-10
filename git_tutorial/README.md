@@ -73,7 +73,9 @@ cd socket-programming-waltermeyer
 ```
 
 Do some work:
+
 *... make some edits to a file, e.g. ```simple_server.py```...*
+
 *... test that the code works ...*
 
 Add the file to the staging area:
