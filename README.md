@@ -260,8 +260,7 @@ Submissions will be done using Git (GitHub Classroom).
 
 You should familiarize yourself with how to use Git:
 
-Quick Start:
-https://github.com/waltermeyer/socket-programming/blob/master/git_tutorial/README.md
+[Quick Start](/git_tutorial/README.md)
 
 More Tutorials:
 https://help.github.com/articles/good-resources-for-learning-git-and-github/
