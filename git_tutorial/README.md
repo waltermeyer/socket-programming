@@ -11,13 +11,13 @@ from GitHub to the computer you want to work on.
 
 So, if your repository is here:
 
-https://github.com/PurchaseCollege/socket-programming-waltermeyer
+https://github.com/PurchaseCollege/socket-programming-yourgitusername
 
 On your computer, from the command line, do:
 
 ```
-git clone https://github.com/PurchaseCollege/socket-programming-waltermeyer.git
-cd socket-programming-waltermeyer
+git clone https://github.com/PurchaseCollege/socket-programming-yourgitusername.git
+cd socket-programming-yourgitusername
 ```
 
 Now you are in your project folder.
@@ -69,7 +69,7 @@ commit your changes to your repository.
 
 Go to my project directory:
 ```
-cd socket-programming-waltermeyer
+cd socket-programming-yourgitusername
 ```
 
 Do some work:
